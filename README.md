@@ -13,46 +13,52 @@ Requires `unzip` to be installed on the server.
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
 ### tomcat
-tomcat_version: '7.0.61'
-java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
-tomcat_dir: '{{ home }}/tomcat'
-tomcat_port: '8080'
-tomcat_port_ajp: '8009'
-tomcat_port_https: '8443'
-tomcat_port_shutdown: '8005'
+
+	tomcat_version: '7.0.61'
+	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
+	tomcat_dir: '{{ home }}/tomcat'
+	tomcat_port: '8080'
+	tomcat_port_ajp: '8009'
+	tomcat_port_https: '8443'
+	tomcat_port_shutdown: '8005'
 
 ### db
-alfresco_db: 'mysql'
-alfresco_db_host: 'localhost'
-alfresco_db_name: 'alfresco'
-alfresco_db_user: 'alfresco'
-alfresco_db_password: 'alfresco'
+
+	alfresco_db: 'mysql'
+	alfresco_db_host: 'localhost'
+	alfresco_db_name: 'alfresco'
+	alfresco_db_user: 'alfresco'
+	alfresco_db_password: 'alfresco'
 
 ### mysql
-mysql_root_db_pass: 'root'
-mysql_connector_version: '5.1.35'
+
+	mysql_root_db_pass: 'root'
+	mysql_connector_version: '5.1.35'
 
 ### postgresql
-postgresqlversion: '9.3'
-postgresql_build: '1'
+	postgresqlversion: '9.3'
+	postgresql_build: '1'
 
 ### tools
-imagemagick_version: '6.5.4.7'
+
+	imagemagick_version: '6.5.4.7'
 
 ### alfresco
-alfresco_build: '00012'
-alfresco_version: '4.2.f'
-alfresco_user: 'alfresco'
-alfresco_group: 'alfresco'
-alfresco_user_home: '/opt/alfresco'
-alfresco_data_home: '/opt/alfresco'
-alfresco_log_home: '/var/log/alfresco'
-alfresco_uid: '501'
-alfresco_indexing: 'lucene'
+
+	alfresco_build: '00012'
+	alfresco_version: '4.2.f'
+	alfresco_user: 'alfresco'
+	alfresco_group: 'alfresco'
+	alfresco_user_home: '/opt/alfresco'
+	alfresco_data_home: '/opt/alfresco'
+	alfresco_log_home: '/var/log/alfresco'
+	alfresco_uid: '501'
+	alfresco_indexing: 'lucene'
 
 ### solr
-solr_host: 'localhost'
-solr_port: '8080'
+
+	solr_host: 'localhost'
+	solr_port: '8080'
 
 ## Dependencies
 

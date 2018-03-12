@@ -1,4 +1,3 @@
 ---
-handlers:
-    - name: restart alfresco
-      service: name=alfresco state=restarted
+- name: restart alfresco
+  service: name=alfresco state=restarted
