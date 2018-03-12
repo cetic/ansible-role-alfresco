@@ -1,12 +1,14 @@
 ---
-# java
-java_type: 'sun'
-java_version: '8u45'
-java_build: 'b14'
+### Specific variable related to the alfresco host are defined here.
 
 # tomcat
 tomcat_version: '7.0.61'
-java_opts: '-Xms512m -Xmx1000m -Xss768k -XX:NewSize=256m -server'
+java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
+tomcat_dir: '{{ home }}/tomcat'
+tomcat_port: '8080'
+tomcat_port_ajp: '8009'
+tomcat_port_https: '8443'
+tomcat_port_shutdown: '8005'
 
 # db
 alfresco_db: 'mysql'
@@ -36,9 +38,6 @@ alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
 alfresco_uid: '501'
 alfresco_indexing: 'lucene'
-
-# lucene
-index_recovery_mode: 'AUTO'
 
 # solr
 solr_host: 'localhost'

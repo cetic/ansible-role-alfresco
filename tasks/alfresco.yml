@@ -42,19 +42,19 @@
   when: alfresco_extracted|changed
 
 - name: Install alfresco startup script
-  template: src=alfresco.sh dest={{ alfresco_user_home }}/bin/alfresco.sh owner={{ alfresco_user }} group={{ alfresco_group }} mode=0755 backup=yes
+  template: src=alfresco.sh.j2 dest={{ alfresco_user_home }}/bin/alfresco.sh owner={{ alfresco_user }} group={{ alfresco_group }} mode=0755 backup=yes
   when: alfresco_extracted|changed
 
 - name: Install alfresco init script
-  template: src=alfresco dest=/etc/init.d/alfresco owner=root group=root mode=0755
+  template: src=alfresco.j2 dest=/etc/init.d/alfresco owner=root group=root mode=0755
   when: alfresco_extracted|changed
 
 - name: Install alfresco global configuration
-  template: src=alfresco-global.properties dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco-global.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644 backup=yes
+  template: src=alfresco-global.properties.j2 dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco-global.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644 backup=yes
   when: alfresco_extracted|changed
 
 - name: Install alfresco logging configuration
-  template: src=custom-log4j.properties dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco/extension/custom-log4j.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  template: src=custom-log4j.properties.j2 dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco/extension/custom-log4j.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_extracted|changed
 
 - name: Set alfresco file owner

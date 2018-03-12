@@ -1,4 +1,13 @@
 ---
+- name: Create group
+  group: name={{ alfresco_group }} state=present
+
+- name: Create user
+  user: name={{ alfresco_user }} home={{ alfresco_user_home }} uid={{ alfresco_uid }} shell=/bin/sh group={{ alfresco_group }} state=present
+
+- name: Create folder
+  file: path={{ alfresco_user_home }} state=directory owner={{ alfresco_user }} group={{ alfresco_group }} mode=0770
+  
 - name: Download tomcat
   shell: 'wget http://archive.apache.org/dist/tomcat/tomcat-{{ tomcat_version|first() }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz
     -O /tmp/apache-tomcat-{{ tomcat_version }}.tar.gz creates=/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz'
@@ -16,8 +25,13 @@
 - name: Set shared loader
   lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
 
-- name: Set URIEncoding
-  lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/server.xml insertafter="^\s{4}<Connector port=\"8080\"" line="               URIEncoding=\"UTF-8\""
+- name: set port {{ tomcat_port }} to tomcat
+  template:
+    src=server.xml.j2
+    dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/server.xml
+    owner={{user}}
+    group={{group}}
+    mode=0755
 
 - name: Set SSLAuthenticator
   lineinfile: dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/context.xml insertbefore="^</Context>" line="    <Valve className=\"org.apache.catalina.authenticator.SSLAuthenticator\" securePagesWithPragma=\"false\" />"
