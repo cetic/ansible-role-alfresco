@@ -6,7 +6,7 @@ Installs Alfresco Community on RHEL/CentOS servers with [ansible](http://www.ans
 
 ## Requirements
 
-Requires `unzip` to be installed on the server. 
+Requires `unzip` and `unzip` to be installed on the server. 
 
 ## Role Variables
 
