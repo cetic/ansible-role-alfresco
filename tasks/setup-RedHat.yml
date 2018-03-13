@@ -1,7 +1,9 @@
 ---
-- name: Ensure unzip package are installed.
+- name: Ensure unzip and wget package are installed.
   package:
-    name: "unzip"
+    name: "{{ item }}"
     state: installed
   with_items:
     - unzip
+    - wget
+    - curl

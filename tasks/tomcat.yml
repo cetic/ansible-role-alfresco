@@ -29,8 +29,8 @@
   template:
     src=server.xml.j2
     dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/server.xml
-    owner={{user}}
-    group={{group}}
+    owner={{alfresco_user}}
+    group={{alfresco_group}}
     mode=0755
 
 - name: Set SSLAuthenticator

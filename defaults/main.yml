@@ -1,6 +1,9 @@
 ---
 ### Specific variable related to the alfresco host are defined here.
 
+## geerlingguy java
+java_home: '/lib/jvm/jre-1.8.0-openjdk'
+
 # tomcat
 tomcat_version: '7.0.61'
 java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
