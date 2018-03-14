@@ -1,0 +1,51 @@
+###############################
+## Common Alfresco Properties #
+###############################
+
+authentication.chain=alfrescoNtlm1:alfrescoNtlm
+alfresco.rmi.services.host=0.0.0.0
+alfresco.port={{ tomcat_port }}
+share.port={{ tomcat_port }}
+
+#alfresco.context=alfresco
+#alfresco.host=127.0.0.1
+#alfresco.port={{ tomcat_port }}
+#alfresco.protocol=http
+
+#share.context=share
+#share.host=127.0.0.1
+#share.port={{ tomcat_port }}
+#share.protocol=http
+
+#
+# File locations
+#-------------
+dir.root={{ alfresco_data_home }}/alf_data
+
+#
+# Database
+#-------------
+db.username={{ alfresco_db_user }}
+db.password={{ alfresco_db_password }}
+db.schema.update=true
+db.driver=com.mysql.jdbc.Driver
+db.url={{alfresco_default_database_url}}
+
+#
+# External locations
+#-------------
+ooo.exe=/usr/bin/soffice
+ooo.enabled=true
+jodconverter.officeHome=/usr/lib64/libreoffice
+jodconverter.portNumbers={{ tomcat_port }}
+jodconverter.enabled=false
+img.root=/usr/share/doc/ImageMagick-{{ imagemagick_version }}
+img.exe=/usr/bin/convert
+swf.exe=/usr/bin/pdf2swf
+
+#
+# Index
+#-------------
+solr.host={{- ip_solr }}
+solr.port={{- solr_port }}
+solr.secureComms=none

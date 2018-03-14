@@ -1,0 +1,10 @@
+---
+# Setup/install tasks.
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+# Install tomcat
+- include: tomcat.yml
+
+# Install Alfresco
+- include: alfresco.yml

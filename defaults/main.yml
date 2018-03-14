@@ -1,0 +1,39 @@
+---
+### Specific variable related to the alfresco host are defined here.
+
+## geerlingguy java
+java_home: '/lib/jvm/jre-1.8.0-openjdk'
+
+# tomcat
+tomcat_version: '7.0.61'
+java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
+tomcat_dir: '{{ home }}/tomcat'
+tomcat_port: '8080'
+tomcat_port_ajp: '8009'
+tomcat_port_https: '8443'
+tomcat_port_shutdown: '8005'
+
+## alfresco
+alfresco_build: '00012'
+alfresco_version: '4.2.f'
+alfresco_user: 'alfresco'
+alfresco_group: 'alfresco'
+alfresco_user_home: '/opt/alfresco'
+alfresco_data_home: '/opt/alfresco'
+alfresco_log_home: '/var/log/alfresco'
+alfresco_uid: '501'
+# db
+alfresco_db_host: '127.0.0.1'
+alfresco_ip: 'localhost'
+alfresco_db_name: 'alfresco'
+alfresco_db_user: 'alfresco'
+alfresco_db_password: 'alfresco'
+alfresco_db_ip: 'localhost'
+alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
+
+# tools
+imagemagick_version: '6.5.4.7'
+
+# solr
+ip_solr: 'localhost'
+solr_port: '8080'

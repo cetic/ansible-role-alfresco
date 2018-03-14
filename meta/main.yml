@@ -1,0 +1,17 @@
+---
+dependencies:
+  - geerlingguy.java
+
+galaxy_info:
+  author: cetic
+  description: Alfresco community
+  company: "CETIC asbl"
+  license: "license (GNU 3)"
+  min_ansible_version: 2.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  galaxy_tags:
+    - ecm, alfresco

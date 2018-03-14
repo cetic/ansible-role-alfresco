@@ -1,63 +1,79 @@
-# ansible-alfresco
+# Ansible Role: Alfresco
 
-[Ansible](http://www.ansible.com/home) playbook to deploy an allinone rpm-based machine alfresco community environment. Based on a 1524MB RAM (and relative JAVA_OPTS tuning) CentOS 6.4 [minimal vagrant box](https://github.com/2creatives/vagrant-centos/releases/tag/v6.5.1) and packed with following components:
+[![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
 
-*   Some prerequisites and utilities (wget, unzip, libselinux-python, python-psycopg2, MySQL-python, vim, byobu)
-*   Oracle Java JDK 7 from Oracle website
-*   Apache Tomcat 7 from Tomcat website
-*   PostgreSql 9 from PostgreSql official rpm repo / Mysql 5 from Mysql official repo and Mysql-connector-java
-*   ImageMagick from distro repo
-*   FFmpeg from atrpms repo
-*   Libreoffice from distro repo
-*   SWFTools from rpmforge repo
-*   Alfresco Community 4.2 Repository from Alfresco website
-*   Alfresco Community 4.2 Share from Alfresco website
+Installs Alfresco Community on RHEL/CentOS servers with [ansible](http://www.ansible.com/home).
 
-Especially useful for virtual development environment, maybe using [Vagrant](http://www.vagrantup.com/).
+## Requirements
 
-## Configuration
+Requires `unzip` and `unzip` to be installed on the server. 
 
-Configuration variables are in `group_vars/all`. You can adjust default values to your need, especially versions, username/password and JAVA_OPTS.
+## Role Variables
 
-## Installation
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    $ git clone https://github.com/libersoft/ansible-alfresco.git ansible-alfresco
+### tomcat
 
-## Usage
+	tomcat_version: '7.0.61'
+	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
+	tomcat_dir: '{{ home }}/tomcat'
+	tomcat_port: '8080'
+	tomcat_port_ajp: '8009'
+	tomcat_port_https: '8443'
+	tomcat_port_shutdown: '8005'
 
+### tools
 
-### Plain Ansible
+	imagemagick_version: '6.5.4.7'
 
-    $ cd ansible-alfresco/provisioning
-    $ ansible-playbook [target] site.yml
+### alfresco
 
-Point your browser to `http://{{ target_ip }}:8080/share`
+	alfresco_build: '00012'
+	alfresco_version: '4.2.f'
+	alfresco_user: 'alfresco'
+	alfresco_group: 'alfresco'
+	alfresco_user_home: '/opt/alfresco'
+	alfresco_data_home: '/opt/alfresco'
+	alfresco_log_home: '/var/log/alfresco'
+	alfresco_uid: '501'
+	
+### alfresco db
 
-*   user:admin
-*   password:admin
+	alfresco_db_host: '127.0.0.1'
+	alfresco_ip: 'localhost'
+	alfresco_db_name: 'alfresco'
+	alfresco_db_user: 'alfresco'
+	alfresco_db_password: 'alfresco'
+	alfresco_db_ip: 'localhost'
+	alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
-### Vagrant
+### solr
 
-    $ cd ansible-alfresco
-    $ vagrant up
-    $ vagrant provision
-    
-Point your browser to `http://127.0.0.1:58080/share`
+	ip_solr: 'localhost'
+	solr_port: '8080'
+	
+### geerlingguy java
 
-*   user:admin
-*   password:admin
+	java_home: '/lib/jvm/jre-1.8.0-openjdk'
 
-## Status
+## Dependencies
 
-Tested on some machines, ready for development environment.
+  - geerlingguy.java
+
+## Example Playbook
+
+```yaml
+- hosts: alfresco
+  roles:
+    - role: geerlingguy.java
+    - role: cetic.ansible-role-alfresco
+      become: true
+```
 
 ## Future improvements
 
-*   ~~Include Apache Solr~~
-*   Apt-based distro compatibility
-*   Some refactoring (conditionals, variables, tags, users)
-*   Multi machine environment
-*   SSL enabled version
+*  Include Apache Solr
+*  Provide DB connection
 
 Feel free to contribute.
 
@@ -66,7 +82,4 @@ Feel free to contribute.
 [Gnu General Public License 3.0](https://www.gnu.org/licenses/gpl.html)
 
 ## Credits
-*   [Step by step installation of Alfresco Community 4.2.c on Ubuntu 12.04 LTS minimal 64bit… please, no bundle!](http://fcorti.com/2013/01/09/installation-alfresco-4-2-c-on-ubuntu/)
-*   [vagrant-centos](https://github.com/2creatives/vagrant-centos)
-*   [vagrant-alfresco](https://github.com/maoo/vagrant-alfresco)
-*   [chef-alfresco](https://github.com/maoo/chef-alfresco)
+*   This a fork from https://github.com/libersoft/ansible-alfresco 
