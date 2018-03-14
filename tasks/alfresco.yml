@@ -62,7 +62,7 @@
   when: alfresco_extracted|changed
 
 - name: Start alfresco server
-  service: name=alfresco state=started
+  shell: service alfresco start
   when: alfresco_extracted|changed
 
 - name: Wait for alfresco war deploy
