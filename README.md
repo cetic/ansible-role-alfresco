@@ -22,23 +22,6 @@ Available variables are listed below, along with default values (see `defaults/m
 	tomcat_port_https: '8443'
 	tomcat_port_shutdown: '8005'
 
-### db
-
-	alfresco_db: 'mysql'
-	alfresco_db_host: 'localhost'
-	alfresco_db_name: 'alfresco'
-	alfresco_db_user: 'alfresco'
-	alfresco_db_password: 'alfresco'
-
-### mysql
-
-	mysql_root_db_pass: 'root'
-	mysql_connector_version: '5.1.35'
-
-### postgresql
-	postgresqlversion: '9.3'
-	postgresql_build: '1'
-
 ### tools
 
 	imagemagick_version: '6.5.4.7'
@@ -53,12 +36,25 @@ Available variables are listed below, along with default values (see `defaults/m
 	alfresco_data_home: '/opt/alfresco'
 	alfresco_log_home: '/var/log/alfresco'
 	alfresco_uid: '501'
-	alfresco_indexing: 'lucene'
+	
+### alfresco db
+
+	alfresco_db_host: '127.0.0.1'
+	alfresco_ip: 'localhost'
+	alfresco_db_name: 'alfresco'
+	alfresco_db_user: 'alfresco'
+	alfresco_db_password: 'alfresco'
+	alfresco_db_ip: 'localhost'
+	alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
 ### solr
 
-	solr_host: 'localhost'
+	ip_solr: 'localhost'
 	solr_port: '8080'
+	
+### geerlingguy java
+
+	java_home: '/lib/jvm/jre-1.8.0-openjdk'
 
 ## Dependencies
 
@@ -74,16 +70,10 @@ Available variables are listed below, along with default values (see `defaults/m
       become: true
 ```
 
-### Vagrant
-
-
 ## Future improvements
 
-*   Include Apache Solr
-*   Apt-based distro compatibility
-*   Some refactoring (conditionals, variables, tags, users)
-*   Multi machine environment
-*   SSL enabled version
+*  Include Apache Solr
+*  Provide DB connection
 
 Feel free to contribute.
 
