@@ -4,6 +4,18 @@
 
 authentication.chain=alfrescoNtlm1:alfrescoNtlm
 alfresco.rmi.services.host=0.0.0.0
+alfresco.port={{ tomcat_port }}
+share.port={{ tomcat_port }}
+
+#alfresco.context=alfresco
+#alfresco.host=127.0.0.1
+#alfresco.port={{ tomcat_port }}
+#alfresco.protocol=http
+
+#share.context=share
+#share.host=127.0.0.1
+#share.port={{ tomcat_port }}
+#share.protocol=http
 
 #
 # File locations
@@ -16,13 +28,8 @@ dir.root={{ alfresco_data_home }}/alf_data
 db.username={{ alfresco_db_user }}
 db.password={{ alfresco_db_password }}
 db.schema.update=true
-{% if alfresco_db == 'mysql' %}
 db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql://{{ alfresco_db_host }}:3306/{{ alfresco_db_name }}
-{% elif alfresco_db == 'postgresql'%}
-db.driver=org.postgresql.Driver
-db.url=jdbc:postgresql://{{ alfresco_db_host }}:5432/{{ alfresco_db_name }}
-{% endif %}
+db.url={{alfresco_default_database_url}}
 
 #
 # External locations
@@ -30,7 +37,7 @@ db.url=jdbc:postgresql://{{ alfresco_db_host }}:5432/{{ alfresco_db_name }}
 ooo.exe=/usr/bin/soffice
 ooo.enabled=true
 jodconverter.officeHome=/usr/lib64/libreoffice
-jodconverter.portNumbers=8100
+jodconverter.portNumbers={{ tomcat_port }}
 jodconverter.enabled=false
 img.root=/usr/share/doc/ImageMagick-{{ imagemagick_version }}
 img.exe=/usr/bin/convert
@@ -39,11 +46,6 @@ swf.exe=/usr/bin/pdf2swf
 #
 # Index
 #-------------
-index.subsystem.name={{ alfresco_indexing }}
-{% if alfresco_indexing == 'lucene' %}
-index.recovery.mode={{ index_recovery_mode }}
-{% elif alfresco_indexing == 'solr' %}
-solr.host={{- solr_host }}
+solr.host={{- ip_solr }}
 solr.port={{- solr_port }}
 solr.secureComms=none
-{% endif %}
