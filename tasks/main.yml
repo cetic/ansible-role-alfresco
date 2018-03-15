@@ -11,4 +11,4 @@
 
 # Install Alfresco Solr
 - include: solr.yml
-  when: solr_setup
+  when: setup_solr
