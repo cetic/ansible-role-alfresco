@@ -8,3 +8,7 @@
 
 # Install Alfresco
 - include: alfresco.yml
+
+# Install Alfresco Solr
+- include: solr.yml
+  when: solr_setup

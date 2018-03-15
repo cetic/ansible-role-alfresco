@@ -35,5 +35,6 @@ alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUn
 imagemagick_version: '6.5.4.7'
 
 # solr
+setup_solr: true
 ip_solr: 'localhost'
 solr_port: '8080'
