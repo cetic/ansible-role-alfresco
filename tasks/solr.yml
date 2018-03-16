@@ -36,11 +36,13 @@
 - name: Set solr file permissions
   file: path={{ alfresco_user_home}}/solr owner={{ alfresco_user }} group={{ alfresco_group }} recurse=yes
   when: alfresco_solr_extracted|changed
+  notify:
+   - restart alfresco
 
-- name: Restart alfresco server
-  shell: service alfresco restart
-  register: alfresco_solr_restarted
-  when: alfresco_solr_extracted|changed
+#- name: Restart alfresco server
+#  shell: service alfresco restart
+#  register: alfresco_solr_restarted
+#  when: alfresco_solr_extracted|changed
 
 - name: Wait for alfresco war deploy
   wait_for: path=/opt/alfresco/tomcat/webapps/solr/WEB-INF/web.xml
@@ -49,7 +51,9 @@
 - name: Relax security constraint for repo http comunication
   copy: src=webSolr.xml dest={{ alfresco_user_home }}/tomcat/webapps/solr/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_solr_restarted|changed
+  notify:
+   - restart alfresco
 
-- name: Restart alfresco server
-  shell: service alfresco restart
-  when: alfresco_solr_restarted|changed
+#- name: Restart alfresco server
+#  shell: service alfresco restart
+#  when: alfresco_solr_restarted|changed
