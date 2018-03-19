@@ -1,17 +1,13 @@
 ---
-- name: stop Alfresco
-  listen: restart alfresco
-  shell: service alfresco stop
-  
 - name: clean previous logs
   listen: restart alfresco
   file:
     state: absent
     path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
 
-- name: start alfresco server
+- name: restart alfresco server
   listen: restart alfresco
-  shell: service alfresco start
+  shell: service alfresco restart
 
 - name: wait for alfresco log
   listen: restart alfresco

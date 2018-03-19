@@ -1,6 +1,7 @@
 # Ansible Role: Alfresco
 
 [![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-_cetic.alfresco-blue.svg)](https://galaxy.ansible.com/cetic/alfresco/)
 
 Installs Alfresco Community on RHEL/CentOS servers with [ansible](http://www.ansible.com/home).
 
@@ -72,7 +73,7 @@ To install Solr with Alfresco, set 'setup_solr' to true.
 - hosts: alfresco
   roles:
     - role: geerlingguy.java
-    - role: cetic.ansible-role-alfresco
+    - role: cetic.alfresco
       become: true
 ```
 
