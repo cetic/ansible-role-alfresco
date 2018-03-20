@@ -15,6 +15,3 @@
 - name: Cleanup mysql-java-connector
   shell: 'rm -rf /tmp/mysql-connector-java-{{ mysql_connector_version }}'
   when: mysqlconnector_extracted|changed
-
-- name: Configure transaction isolation
-  lineinfile: dest=/etc/my.cnf insertafter="sql-mode" line="transaction-isolation=READ-COMMITTED"
