@@ -1,12 +1,16 @@
 # Ansible Role: Alfresco
 
 [![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-_cetic.alfresco-blue.svg)](https://galaxy.ansible.com/cetic/alfresco/)
 
 Installs Alfresco Community on RHEL/CentOS servers with [ansible](http://www.ansible.com/home).
 
+This repository is a fork from https://github.com/libersoft/ansible-alfresco
+The goal here is to provide a standalone alfresco role that can be added in your playbooks.
+
 ## Requirements
 
-Requires `unzip` and `unzip` to be installed on the server. 
+Requires `unzip` and `wget` to be installed on the server. 
 
 ## Role Variables
 
@@ -47,10 +51,13 @@ Available variables are listed below, along with default values (see `defaults/m
 	alfresco_db_ip: 'localhost'
 	alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
-### solr
-
+### solr alfresco
+	
+	setup_solr: true
 	ip_solr: 'localhost'
 	solr_port: '8080'
+	
+To install Solr with Alfresco, set 'setup_solr' to true.
 	
 ### geerlingguy java
 
@@ -66,14 +73,16 @@ Available variables are listed below, along with default values (see `defaults/m
 - hosts: alfresco
   roles:
     - role: geerlingguy.java
-    - role: cetic.ansible-role-alfresco
+    - role: cetic.alfresco
       become: true
 ```
 
 ## Future improvements
 
-*  Include Apache Solr
 *  Provide DB connection
+*  Provide more recent version of Alfresco & Solr 
+*  Linux support 
+*  Separate Tomcat - Alfresco roles
 
 Feel free to contribute.
 
@@ -82,4 +91,4 @@ Feel free to contribute.
 [Gnu General Public License 3.0](https://www.gnu.org/licenses/gpl.html)
 
 ## Credits
-*   This a fork from https://github.com/libersoft/ansible-alfresco 
+*   This is a fork from https://github.com/libersoft/ansible-alfresco

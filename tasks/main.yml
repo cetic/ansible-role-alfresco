@@ -6,5 +6,13 @@
 # Install tomcat
 - include: tomcat.yml
 
+# Install tomcat
+- include: mysql-java-connector.yml
+  when: setup_mysql_java_connector
+
 # Install Alfresco
 - include: alfresco.yml
+
+# Install Alfresco Solr
+- include: solr.yml
+  when: setup_solr

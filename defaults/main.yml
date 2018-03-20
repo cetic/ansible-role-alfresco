@@ -7,7 +7,7 @@ java_home: '/lib/jvm/jre-1.8.0-openjdk'
 # tomcat
 tomcat_version: '7.0.61'
 java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
-tomcat_dir: '{{ home }}/tomcat'
+tomcat_dir: '{{ alfresco_user_home }}/tomcat'
 tomcat_port: '8080'
 tomcat_port_ajp: '8009'
 tomcat_port_https: '8443'
@@ -22,18 +22,29 @@ alfresco_user_home: '/opt/alfresco'
 alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
 alfresco_uid: '501'
+alfresco_ip: 'localhost'
 # db
 alfresco_db_host: '127.0.0.1'
-alfresco_ip: 'localhost'
+alfresco_db_ip: 'localhost'
 alfresco_db_name: 'alfresco'
 alfresco_db_user: 'alfresco'
 alfresco_db_password: 'alfresco'
-alfresco_db_ip: 'localhost'
 alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
 # tools
 imagemagick_version: '6.5.4.7'
 
 # solr
+setup_solr: true
 ip_solr: 'localhost'
 solr_port: '8080'
+
+# mysql-java-connector
+setup_mysql_java_connector: true
+mysql_connector_version: '5.1.35'
+
+# mysql
+mysql_root_db_pass: 'root'
+mysql_port: '3306'
+mysql_bind_address: '0.0.0.0'
+ip_mysql: '10.0.0.9'

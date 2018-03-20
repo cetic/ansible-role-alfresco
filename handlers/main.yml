@@ -1,3 +1,24 @@
 ---
-- name: restart alfresco
-  service: name=alfresco state=restarted
+- name: clean previous logs
+  listen: restart alfresco
+  file:
+    state: absent
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+
+- name: restart alfresco server
+  listen: restart alfresco
+  shell: service alfresco restart
+
+- name: wait for alfresco log
+  listen: restart alfresco
+  wait_for:
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+    state: present
+
+- name: wait for alfresco startup
+  listen: restart alfresco
+  shell: 'grep "Server startup in" {{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  register: cmd_result
+  retries: 1000
+  delay: 5
+  until: cmd_result | success
