@@ -7,7 +7,7 @@
     - unzip
     - wget
     - curl
-    - ImageMagick
+    - imagemagick
     - libreoffice
-    - libreoffice-headless
+    - libreoffice-core
 
