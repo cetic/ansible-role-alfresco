@@ -14,10 +14,6 @@ env:
     playbook: test.yml
     prefix: ''
     http_port: 8080
-  - distro: ubuntu1604
-    playbook: test.yml
-    prefix: ''
-    http_port: 8080
 
 script:
   # Configure test script so we can run extra tests after playbook is run.

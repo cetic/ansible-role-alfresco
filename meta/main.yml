@@ -15,6 +15,6 @@ galaxy_info:
     - 7
   - name: Ubuntu
     versions:
-    - all
+    - trusty
   galaxy_tags:
     - ecm, alfresco

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-_cetic.alfresco-blue.svg)](https://galaxy.ansible.com/cetic/alfresco/)
 
-Installs Alfresco Community on RHEL/CentOS servers with [ansible](http://www.ansible.com/home).
+Installs Alfresco Community on RHEL/CentOS servers and Ubuntu servers with [ansible](http://www.ansible.com/home).
 
 This repository is a fork from https://github.com/libersoft/ansible-alfresco
 The goal here is to provide a standalone alfresco role that can be added in your playbooks.
