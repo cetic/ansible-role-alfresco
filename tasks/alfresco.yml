@@ -75,6 +75,6 @@
   
 - name: Create lib folder if it doesn't exist (fix issue)
   file:
-    path: /opt/apache-tomcat*/shared/lib
+    path: /opt/apache-tomcat-{{ tomcat_version }}/shared/lib
     state: directory
     mode: 0755

@@ -1,11 +1,13 @@
 ---
-# Install Alfresco
 - hosts: all
   become: true
   tasks:
     - name: installing repo for Java 8 in Ubuntu
       apt_repository: repo='ppa:openjdk-r/ppa'
       when: "ansible_os_family == 'Ubuntu'"
+# Install Alfresco
+- hosts: all
+  become: true
   roles:
     - role: geerlingguy.java
       when: "ansible_os_family == 'RedHat'"
