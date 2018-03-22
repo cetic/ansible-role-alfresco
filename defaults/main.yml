@@ -37,7 +37,7 @@ imagemagick_version: '6.5.4.7'
 # solr
 setup_solr: true
 ip_solr: 'localhost'
-solr_port: '8080'
+solr_port: '8983'
 
 # mysql-java-connector
 setup_mysql_java_connector: true
@@ -47,4 +47,4 @@ mysql_connector_version: '5.1.35'
 mysql_root_db_pass: 'root'
 mysql_port: '3306'
 mysql_bind_address: '0.0.0.0'
-ip_mysql: '10.0.0.9'
+ip_mysql: 'localhost'

@@ -2,7 +2,10 @@
 # Setup/install tasks.
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
-
+  
+- include: setup-Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+  
 # Install tomcat
 - include: tomcat.yml
 
