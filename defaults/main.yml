@@ -17,6 +17,8 @@ tomcat_port_shutdown: '8005'
 alfresco_build: '00012'
 alfresco_version: '4.2.f'
 alfresco_version_url: '{{alfresco_version}}'
+alfresco_archive_folder: ''
+
 alfresco_user: 'alfresco'
 alfresco_group: 'alfresco'
 alfresco_user_home: '/opt/alfresco'
@@ -39,6 +41,9 @@ imagemagick_version: '6.5.4.7'
 setup_solr: true
 ip_solr: 'localhost'
 solr_port: '8983'
+solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
+solr_version: solr
+solr_war: apache-solr-1.4.1.war
 
 # mysql-java-connector
 setup_mysql_java_connector: true

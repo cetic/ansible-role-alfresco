@@ -34,6 +34,8 @@ Available variables are listed below, along with default values (see `defaults/m
 
 	alfresco_build: '00012'
 	alfresco_version: '4.2.f'
+	alfresco_version_url: '{{alfresco_version}}'
+	alfresco_archive_folder: ''
 	alfresco_user: 'alfresco'
 	alfresco_group: 'alfresco'
 	alfresco_user_home: '/opt/alfresco'
@@ -56,6 +58,9 @@ Available variables are listed below, along with default values (see `defaults/m
 	setup_solr: true
 	ip_solr: 'localhost'
 	solr_port: '8080'
+	solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
+	solr_version: solr
+	solr_war: apache-solr-1.4.1.war
 	
 To install Solr with Alfresco, set 'setup_solr' to true.
 	

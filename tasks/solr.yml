@@ -1,11 +1,11 @@
 ---
 - name: Download solr community
-  shell: 'wget http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/alfresco-community-solr-{{ alfresco_version }}.zip
-    -O /tmp/alfresco-community-solr-{{ alfresco_version }}.zip creates=/tmp/alfresco-community-solr-{{ alfresco_version }}.zip'
+  shell: 'wget http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/{{ solr_version_url }}.zip
+    -O /tmp/{{ solr_version_url }}.zip creates=/tmp/{{ solr_version }}.zip'
   register: alfresco_solr_downloaded
 
 - name: Extract alfresco solr
-  command: unzip -o /tmp/alfresco-community-solr-{{ alfresco_version }}.zip -d /tmp/alfresco-solr/
+  command: unzip -o /tmp/{{ solr_version_url }}.zip -d /tmp/alfresco-solr/
   register: alfresco_solr_extracted
   when: alfresco_solr_downloaded|changed
 
@@ -40,11 +40,11 @@
   when: alfresco_solr_extracted|changed
 
 - name: Wait for alfresco war deploy
-  wait_for: path=/opt/alfresco/tomcat/webapps/solr/WEB-INF/web.xml
+  wait_for: path=/opt/alfresco/tomcat/webapps/{{ solr_version }}/WEB-INF/web.xml
   when: alfresco_solr_extracted|changed
 
 - name: Relax security constraint for repo http comunication
-  copy: src=webSolr.xml dest={{ alfresco_user_home }}/tomcat/webapps/solr/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  copy: src=webSolr.xml dest={{ alfresco_user_home }}/tomcat/webapps/{{ solr_version }}/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   notify:
    - restart alfresco
   when: alfresco_solr_extracted|changed

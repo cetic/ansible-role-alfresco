@@ -10,11 +10,11 @@
   when: alfresco_downloaded|changed
 
 - name: Install alfresco to tomcat
-  shell: cp -rf /tmp/alfresco/web-server/* {{ alfresco_user_home }}/tomcat/
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/web-server/* {{ alfresco_user_home }}/tomcat/
   when: alfresco_extracted|changed
 
 - name: Install alfresco bin, licenses and readme
-  shell: cp -rf /tmp/alfresco/bin /tmp/alfresco/licenses /tmp/alfresco/README.txt {{ alfresco_user_home }}/
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
   when: alfresco_extracted|changed
 
 - name: Cleanup alfresco unzipped
