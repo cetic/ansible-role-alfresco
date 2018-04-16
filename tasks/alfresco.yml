@@ -67,10 +67,6 @@
   
 - include: azure-blob-storage.yml
   when: setup_azure_blob_storage
-  
-- name: Apply amps Shared Alfresco
-  shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
-  when: not setup_shared_alfresco
 
 - name: Start alfresco server
   shell: service alfresco start
