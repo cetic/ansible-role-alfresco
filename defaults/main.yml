@@ -34,8 +34,8 @@ alfresco_db_user: 'alfresco'
 alfresco_db_password: 'alfresco'
 alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
-# Apply shared from Alfresco
-setup_shared_alfresco: true
+# Apply shared from Alfresco 5.2
+setup_shared_alfresco: false
 
 # Alfresco Plugin Azure Blob Storage
 setup_azure_blob_storage: false

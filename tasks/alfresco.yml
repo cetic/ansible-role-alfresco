@@ -13,9 +13,13 @@
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/web-server/* {{ alfresco_user_home }}/tomcat/
   when: alfresco_extracted|changed
 
-- name: Install alfresco bin, licenses, amps and readme
-  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/amps /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
+- name: Install alfresco bin, licenses and readme
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
   when: alfresco_extracted|changed
+  
+- name: Install alfresco amps for alfresco share (5.2)
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/amps
+  when: setup_shared_alfresco
 
 - name: Cleanup alfresco unzipped
   file: path=/tmp/alfresco state=absent
@@ -76,6 +80,10 @@
   wait_for: path=/opt/alfresco/tomcat/webapps/alfresco/WEB-INF/web.xml
   when: alfresco_extracted|changed  
   
+- name: Relax security constraint for solr http comunication
+  copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  when: alfresco_extracted|changed
+  
 - name: wait for alfresco log
   wait_for:
     path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
@@ -93,10 +101,6 @@
   notify:
    - restart alfresco
 
-- name: Relax security constraint for solr http comunication
-  copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-  when: alfresco_extracted|changed
-  
 - name: Create lib folder if it doesn't exist (fix issue)
   file:
     path: /opt/apache-tomcat-{{ tomcat_version }}/shared/lib
