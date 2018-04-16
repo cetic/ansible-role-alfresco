@@ -32,6 +32,7 @@ alfresco_db_ip: 'localhost'
 alfresco_db_name: 'alfresco'
 alfresco_db_user: 'alfresco'
 alfresco_db_password: 'alfresco'
+alfresco_db_driver: 'com.mysql.jdbc.Driver'
 alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
 # Apply shared from Alfresco 5.2
