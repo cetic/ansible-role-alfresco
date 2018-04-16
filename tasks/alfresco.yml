@@ -94,6 +94,7 @@
 
 - name: Apply amps Shared Alfresco
   shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
+  when: setup_shared_alfresco
   notify:
    - restart alfresco
 
