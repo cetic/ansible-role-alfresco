@@ -1,0 +1,25 @@
+---
+- name: Git checkout of the Alfresco adapter to work with Azure block storage
+  git:
+    repo: 'https://github.com/EisenVault/ev-alfresco-azure-adapter.git'
+    dest: /tmp/ev-alfresco-azure-adapter/
+
+- name: Download dependencies and build the project ev-alfresco-azure-adapter
+  shell: mvn -f /tmp/ev-alfresco-azure-adapter/pom.xml clean install
+
+- name: Wait for ev-alfresco-azure-adapter amps file
+  wait_for: path=/tmp/ev-alfresco-azure-adapter/target/alfresco-azure-adapter.amp
+  
+- name: Copy alfresco-azure-adapter.amp into amps folder.
+  copy:
+    src: '/tmp/ev-alfresco-azure-adapter/target/alfresco-azure-adapter.amp'
+    dest: '{{ alfresco_user_home }}/amps'
+    remote_src: yes
+    owner: '{{ alfresco_user }}'
+    group: '{{ alfresco_group }}'
+    mode: 0755
+
+- name: Apply amps alfresco-azure-adapter.amp
+  shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
+  notify:
+   - restart alfresco

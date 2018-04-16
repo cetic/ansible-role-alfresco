@@ -34,6 +34,16 @@ alfresco_db_user: 'alfresco'
 alfresco_db_password: 'alfresco'
 alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
+# Apply shared from Alfresco
+setup_shared_alfresco: true
+
+# Alfresco Plugin Azure Blob Storage
+setup_azure_blob_storage: false
+# If true set these variables
+#azure_ssh_key: 
+#azure_container_name: 
+#azure_storage_account:
+
 # tools
 imagemagick_version: '6.5.4.7'
 
