@@ -1,0 +1,10 @@
+---
+__alfresco_packages:
+    - unzip
+    - wget
+    - curl
+    - ImageMagick
+    - libreoffice
+    - libreoffice-headless
+    - git
+    - maven

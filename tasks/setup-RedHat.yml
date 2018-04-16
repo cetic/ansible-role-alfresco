@@ -1,15 +1,7 @@
 ---
-- name: Ensure unzip and wget package are installed.
+- name: Ensure all package are installed.
   package:
     name: "{{ item }}"
     state: installed
-  with_items:
-    - unzip
-    - wget
-    - curl
-    - ImageMagick
-    - libreoffice
-    - libreoffice-headless
-    - git
-    - maven
+  with_items: "{{ alfresco_packages }}"
 
