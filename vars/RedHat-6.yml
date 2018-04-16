@@ -1,4 +1,5 @@
 ---
+alfresco_enablerepo: 'http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo'
 __alfresco_packages:
     - unzip
     - wget

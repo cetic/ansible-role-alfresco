@@ -1,4 +1,5 @@
 ---
+alfresco_enablerepo: ''
 __alfresco_packages:
     - unzip
     - wget

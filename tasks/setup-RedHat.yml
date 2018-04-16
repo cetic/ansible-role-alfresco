@@ -1,7 +1,8 @@
 ---
 - name: Ensure all package are installed.
-  package:
+  yum:
     name: "{{ item }}"
     state: installed
+    enablerepo: "{{ alfresco_enablerepo }}"
   with_items: "{{ alfresco_packages }}"
 
