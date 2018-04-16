@@ -18,7 +18,7 @@
   when: alfresco_extracted|changed
   
 - name: Install alfresco amps for alfresco share (5.2)
-  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/amps
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/amps {{ alfresco_user_home }}/
   when: setup_shared_alfresco
 
 - name: Cleanup alfresco unzipped

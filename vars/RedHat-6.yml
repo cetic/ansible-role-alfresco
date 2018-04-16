@@ -7,4 +7,4 @@ __alfresco_packages:
     - libreoffice
     - libreoffice-headless
     - git
-    - maven
+    - apache-maven

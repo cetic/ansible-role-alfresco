@@ -4,15 +4,15 @@ services: docker
 env:
   - distro: centos6
     playbook: test.yml
-    prefix: ''
+    prefix: 'share/page/'
     http_port: 8080
   - distro: centos7
     playbook: test.yml
-    prefix: ''
+    prefix: 'share/page/'
     http_port: 8080
   - distro: ubuntu1404
     playbook: test.yml
-    prefix: ''
+    prefix: 'share/page/'
     http_port: 8080
 
 script:
@@ -28,7 +28,9 @@ script:
   # Run tests.
   - tests/test.sh
 
- # Make sure Alfresco is running.
+ # Make sure Tomcat is running.
+  - 'docker exec --tty ${container_id} env TERM=xterm curl http://localhost:$http_port'
+# Make sure Tomcat is running.
   - 'docker exec --tty ${container_id} env TERM=xterm curl http://localhost:$http_port/$prefix'
 
 after_failure:
