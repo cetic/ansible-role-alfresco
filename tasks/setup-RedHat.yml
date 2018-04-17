@@ -1,8 +1,9 @@
 ---
-- name: Add maven to the yum libraries
+- name: Add apache-maven to the yum libraries
   get_url:
     url: https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
     dest: /etc/yum.repos.d/epel-apache-maven.repo
+  when: ansible_distribution_major_version == "6"
 
 - name: Ensure all package are installed.
   yum:
