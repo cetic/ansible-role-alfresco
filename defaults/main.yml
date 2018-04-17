@@ -59,9 +59,3 @@ solr_war: apache-solr-1.4.1.war
 # mysql-java-connector
 setup_mysql_java_connector: true
 mysql_connector_version: '5.1.35'
-
-# mysql
-mysql_root_db_pass: 'root'
-mysql_port: '3306'
-mysql_bind_address: '0.0.0.0'
-ip_mysql: 'localhost'

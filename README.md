@@ -6,13 +6,16 @@
 Installs Alfresco Community on RHEL/CentOS servers and Ubuntu servers with [ansible](http://www.ansible.com/home).
 
 This repository is a fork from https://github.com/libersoft/ansible-alfresco
-The goal here is to provide a standalone alfresco role that can be added in your playbooks.
+The goal here is to provide a standalone alfresco role that can be added into your playbooks.
+The ansible ansible role allows you to install, for the moment, the version 4.2 or 5.2 of Alfresco.
 
 ## Requirements
 
-Requires `unzip` and `wget` to be installed on the server. 
+You can use these ansible roles to set up a mysql or a postgresql database:
+* https://github.com/geerlingguy/ansible-role-mysql
+* https://github.com/geerlingguy/ansible-role-postgresql
 
-## Role Variables
+## Role Variables for Alfresco 4.2
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
@@ -25,12 +28,18 @@ Available variables are listed below, along with default values (see `defaults/m
 	tomcat_port_ajp: '8009'
 	tomcat_port_https: '8443'
 	tomcat_port_shutdown: '8005'
+	
+You can set variables related to tomcat here.
 
 ### tools
 
 	imagemagick_version: '6.5.4.7'
+	
+You can set the version of imagemagick by passing it in here.
 
 ### alfresco
+
+You can set variables related to alfresco here.
 
 	alfresco_build: '00012'
 	alfresco_version: '4.2.f'
@@ -38,10 +47,18 @@ Available variables are listed below, along with default values (see `defaults/m
 	alfresco_archive_folder: ''
 	alfresco_user: 'alfresco'
 	alfresco_group: 'alfresco'
+	
+The user and group under which Alfresco will run.	
+	
 	alfresco_user_home: '/opt/alfresco'
 	alfresco_data_home: '/opt/alfresco'
+    alfresco_uid: '501'
+	
+The directories where Alfresco will be installed.
+	
 	alfresco_log_home: '/var/log/alfresco'
-	alfresco_uid: '501'
+	
+The directory for the logs of Alfresco.
 	
 ### alfresco db
 
@@ -51,13 +68,23 @@ Available variables are listed below, along with default values (see `defaults/m
 	alfresco_db_user: 'alfresco'
 	alfresco_db_password: 'alfresco'
 	alfresco_db_ip: 'localhost'
+	alfresco_db_driver: 'com.mysql.jdbc.Driver'
 	alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
 
+You can set variables related to the installed database. It needs to create a user/password and a database.
+
+### mysql-java-connector
+
+setup_mysql_java_connector: true
+mysql_connector_version: '5.1.35'
+
+In the case where you use a mysql database, you need to install the mysql connector for java by passing `setup_mysql_java_connector` to true.
+	
 ### solr alfresco
 	
 	setup_solr: true
 	ip_solr: 'localhost'
-	solr_port: '8080'
+	solr_port: '8983'
 	solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
 	solr_version: solr
 	solr_war: apache-solr-1.4.1.war
@@ -67,7 +94,46 @@ To install Solr with Alfresco, set 'setup_solr' to true.
 ### geerlingguy java
 
 	java_home: '/lib/jvm/jre-1.8.0-openjdk'
+	
+## Role Variables for Alfresco 5.2
 
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+### alfresco
+
+You can set these variables to have an Alfresco 5.2.
+
+	alfresco_build: '00028'
+	alfresco_version: '201707'	
+	alfresco_version_url: 'distribution-201707'
+	alfresco_archive_folder: '/alfresco-community-distribution-201707'
+	alfresco_user: 'alfresco'
+	alfresco_group: 'alfresco'	
+	alfresco_user_home: '/opt/alfresco'
+	alfresco_data_home: '/opt/alfresco'
+    alfresco_uid: '501'
+	alfresco_log_home: '/var/log/alfresco'
+
+### solr alfresco
+	
+	setup_solr: true
+	ip_solr: 'localhost'
+	solr_port: '8983'
+	solr_version_url: alfresco-solr4-5.2.g
+	solr_version: solr4
+	solr_war: solr4.war
+
+### Share Alfresco Service
+
+	setup_shared_alfresco: true
+
+## Role Variables for Plugin Blob Storage Azure (See https://github.com/EisenVault/ev-alfresco-azure-adapter)
+
+	setup_azure_blob_storage: true
+	azure_ssh_key: #yourkey
+	azure_container_name: #yourcontainername
+	azure_storage_account: #yourstorageaccount
+	
 ## Dependencies
 
   - geerlingguy.java
@@ -84,9 +150,8 @@ To install Solr with Alfresco, set 'setup_solr' to true.
 
 ## Future improvements
 
-*  Provide DB connection
-*  Provide more recent version of Alfresco & Solr 
-*  Linux support 
+*  Provide more recent/different version of Alfresco & Solr 
+*  More Linux support 
 *  Separate Tomcat - Alfresco roles
 
 Feel free to contribute.
@@ -96,4 +161,4 @@ Feel free to contribute.
 [Gnu General Public License 3.0](https://www.gnu.org/licenses/gpl.html)
 
 ## Credits
-*   This is a fork from https://github.com/libersoft/ansible-alfresco
+This repository is a fork from https://github.com/libersoft/ansible-alfresco
