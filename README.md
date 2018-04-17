@@ -98,7 +98,7 @@ To install Solr with Alfresco, set 'setup_solr' to true.
 	
 ## Role Variables for Alfresco 5.2
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
+Available variables for Alfresco 5.2 are listed below:
 
 ### alfresco
 
@@ -152,7 +152,7 @@ See https://github.com/EisenVault/ev-alfresco-azure-adapter for more information
 
 ## Future improvements
 
-*  Provide more recent/different version of Alfresco & Solr 
+*  Provide more recent/different versions of Alfresco & Solr 
 *  More Linux support 
 *  Separate Tomcat - Alfresco roles
 
