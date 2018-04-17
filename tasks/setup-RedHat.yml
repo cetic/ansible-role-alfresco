@@ -1,8 +1,12 @@
 ---
+- name: Add maven to the yum libraries
+  get_url:
+    url: https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
+    dest: /etc/yum.repos.d/epel-apache-maven.repo
+
 - name: Ensure all package are installed.
   yum:
     name: "{{ item }}"
     state: installed
     enablerepo: "{{ alfresco_enablerepo }}"
   with_items: "{{ alfresco_packages }}"
-
