@@ -7,7 +7,8 @@ Installs Alfresco Community on RHEL/CentOS servers and Ubuntu servers with [ansi
 
 This repository is a fork from https://github.com/libersoft/ansible-alfresco
 The goal here is to provide a standalone alfresco role that can be added into your playbooks.
-The ansible ansible role allows you to install, for the moment, the version 4.2 or 5.2 of Alfresco.
+
+The ansible role allows you to install, for the moment, the version 4.2 or 5.2 of Alfresco.
 
 ## Requirements
 
@@ -127,7 +128,8 @@ You can set these variables to have an Alfresco 5.2.
 
 	setup_shared_alfresco: true
 
-## Role Variables for Plugin Blob Storage Azure (See https://github.com/EisenVault/ev-alfresco-azure-adapter)
+## Role Variables for Plugin Blob Storage Azure 
+See https://github.com/EisenVault/ev-alfresco-azure-adapter for more informations.
 
 	setup_azure_blob_storage: true
 	azure_ssh_key: #yourkey
