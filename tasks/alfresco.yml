@@ -92,11 +92,32 @@
   delay: 5
   until: cmd_result | success
 
+- name: clean previous logs
+  file:
+    state: absent
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  
+- name: stop alfresco server
+  shell: service alfresco stop
+
 - name: Apply amps Shared Alfresco
   shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
   when: setup_shared_alfresco
-  notify:
-   - restart alfresco
+  
+- name: start alfresco server
+  shell: service alfresco start
+
+- name: wait for alfresco log
+  wait_for:
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+    state: present
+
+- name: wait for alfresco startup
+  shell: 'grep "Server startup in" {{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  register: cmd_result
+  retries: 1000
+  delay: 5
+  until: cmd_result | success
 
 - name: Create lib folder if it doesn't exist (fix issue)
   file:
