@@ -40,6 +40,8 @@ setup_shared_alfresco: false
 
 # Alfresco Plugin Azure Blob Storage
 setup_azure_blob_storage: false
+# download_alfresco_adapter: true 
+# download_alfresco_adapter_url: https://github.com/cetic/ev-alfresco-azure-adapter/releases/download/1.0.0/alfresco-azure-adapter.amp
 # If true set these variables
 #azure_ssh_key: 
 #azure_container_name: 
