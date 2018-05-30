@@ -21,10 +21,10 @@
 - include: setup-Ubuntu.yml
   when: ansible_os_family == 'Debian'
   
-# Install tomcat
+# Install tomcat configuration
 - include: tomcat.yml
 
-# Install tomcat
+# Install mysql java connector
 - include: mysql-java-connector.yml
   when: setup_mysql_java_connector
 

@@ -1,0 +1,14 @@
+---
+configs:
+  alfresco:
+    ip: '10.0.0.10'
+    box: 'geerlingguy/centos7'
+    cpu: '1'
+    ram: '1024'
+    hostname: 'alfresco'
+  controller:
+    ip: '10.0.0.20'
+    box: 'geerlingguy/centos7'
+    cpu: '1'
+    ram: '1024'
+    hostname: 'controller'
