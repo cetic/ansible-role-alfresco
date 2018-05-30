@@ -1,3 +1,6 @@
 hosts
 *.retry
 *.vagrant
+roles
+cetic*
+geerlingguuy*

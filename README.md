@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-_cetic.alfresco-blue.svg)](https://galaxy.ansible.com/cetic/alfresco/)
 
-Installs Alfresco Community on RHEL/CentOS servers and Ubuntu servers with [ansible](http://www.ansible.com/home).
+Installs Alfresco Community on RHEL/CentOS 7 with [ansible](http://www.ansible.com/home).
 
 This repository is a fork from https://github.com/libersoft/ansible-alfresco
 The goal here is to provide a standalone alfresco role that can be added into your playbooks.
@@ -139,22 +139,33 @@ See https://github.com/EisenVault/ev-alfresco-azure-adapter for more information
 ## Dependencies
 
   - geerlingguy.java
+  - cetic.tomcat
 
 ## Example Playbook
 
 ```yaml
 - hosts: alfresco
+  become: true
   roles:
     - role: geerlingguy.java
+	- role: cetic.tomcat
     - role: cetic.alfresco
-      become: true
 ```
+
+## Tests
+
+### testing locally with [Vagrant](https://www.vagrantup.com/)
+
+You can test this ansible role by using `vagrant`. See the Vagrantfile.
+
+### testing with Travis
+
+See the playbook used for Travis CI tests (tests/test.yml).
 
 ## Future improvements
 
 *  Provide more recent/different versions of Alfresco & Solr 
-*  More Linux support 
-*  Separate Tomcat - Alfresco roles
+*  More OS plateforms support 
 
 Feel free to contribute.
 

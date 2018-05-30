@@ -5,13 +5,16 @@
 java_home: '/lib/jvm/jre-1.8.0-openjdk'
 
 # tomcat
-tomcat_version: '7.0.61'
-java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
+tomcat_version: '8.5.31'
+
 tomcat_dir: '{{ alfresco_user_home }}/tomcat'
 tomcat_port: '8080'
 tomcat_port_ajp: '8009'
 tomcat_port_https: '8443'
 tomcat_port_shutdown: '8005'
+tomcat_group: 'alfresco'
+tomcat_user: 'alfresco'
+tomcat_user_home: '/opt/alfresco/tomcat'
 
 ## alfresco
 alfresco_build: '00012'
@@ -26,6 +29,8 @@ alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
 alfresco_uid: '501'
 alfresco_ip: 'localhost'
+
+java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
 # db
 alfresco_db_host: '127.0.0.1'
 alfresco_db_ip: 'localhost'
