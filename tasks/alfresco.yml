@@ -7,15 +7,15 @@
 - name: Extract alfresco
   command: unzip -o /tmp/alfresco-community-{{ alfresco_version }}.zip -d /tmp/alfresco/
   register: alfresco_extracted
-  when: alfresco_downloaded|changed
+  when: alfresco_downloaded is changed
 
 - name: Install alfresco to tomcat
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/web-server/* {{ alfresco_user_home }}/tomcat/
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install alfresco bin, licenses and readme
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
   
 - name: Install alfresco amps for alfresco share (5.2)
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/amps {{ alfresco_user_home }}/
@@ -23,62 +23,62 @@
 
 - name: Cleanup alfresco unzipped
   file: path=/tmp/alfresco state=absent
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Create alfresco alf_data directory
   file: path={{ alfresco_user_home }}/alf_data state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Create alfresco amp directory if not exists
   file: path={{ alfresco_user_home }}/amps state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Create alfresco amp_share directory
   file: path={{ alfresco_user_home }}/amps_share state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Create alfresco log directory
   file: path={{ alfresco_log_home }} state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install libreoffice startup script
   copy: src=start_oo.sh dest={{ alfresco_user_home }}/bin/start_oo.sh owner={{ alfresco_user }} group={{ alfresco_group }} mode=0755
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install alfresco startup script
   template: src=alfresco.sh.j2 dest={{ alfresco_user_home }}/bin/alfresco.sh owner={{ alfresco_user }} group={{ alfresco_group }} mode=0755 backup=yes
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install alfresco init script
   template: src=alfresco.j2 dest=/etc/init.d/alfresco owner=root group=root mode=0755
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install alfresco global configuration
   template: src=alfresco-global.properties.j2 dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco-global.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644 backup=yes
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Install alfresco logging configuration
   template: src=custom-log4j.properties.j2 dest={{ alfresco_user_home }}/tomcat/shared/classes/alfresco/extension/custom-log4j.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
 
 - name: Set alfresco file owner
   shell: chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }} && chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }}/tomcat/
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
   
 - include: azure-blob-storage.yml
   when: setup_azure_blob_storage
 
 - name: Start alfresco server
   shell: service alfresco start
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
   
 - name: Wait for alfresco war deploy
   wait_for: path=/opt/alfresco/tomcat/webapps/alfresco/WEB-INF/web.xml
-  when: alfresco_extracted|changed  
+  when: alfresco_extracted is changed
   
 - name: Relax security constraint for solr http comunication
   copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-  when: alfresco_extracted|changed
+  when: alfresco_extracted is changed
   
 - name: wait for alfresco log
   wait_for:
@@ -90,7 +90,7 @@
   register: cmd_result
   retries: 1000
   delay: 5
-  until: cmd_result | success
+  until: cmd_result is success
 
 - name: clean previous logs
   file:
@@ -117,7 +117,7 @@
   register: cmd_result
   retries: 1000
   delay: 5
-  until: cmd_result | success
+  until: cmd_result is success
 
 #- name: Create lib folder if it doesn't exist (fix issue)
 #  file:

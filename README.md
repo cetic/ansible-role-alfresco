@@ -22,13 +22,14 @@ Available variables are listed below, along with default values (see `defaults/m
 
 ### tomcat
 
-	tomcat_version: '7.0.61'
-	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
-	tomcat_dir: '{{ home }}/tomcat'
+	tomcat_version: '8.5.31'
 	tomcat_port: '8080'
 	tomcat_port_ajp: '8009'
 	tomcat_port_https: '8443'
 	tomcat_port_shutdown: '8005'
+	tomcat_group: 'alfresco'
+	tomcat_user: 'alfresco'
+	tomcat_user_home: '/opt/alfresco/tomcat'
 	
 You can set variables related to tomcat here.
 
@@ -48,6 +49,7 @@ You can set variables related to alfresco here.
 	alfresco_archive_folder: ''
 	alfresco_user: 'alfresco'
 	alfresco_group: 'alfresco'
+	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
 	
 The user and group under which Alfresco will run.	
 	
