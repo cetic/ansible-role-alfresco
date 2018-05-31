@@ -1,6 +1,6 @@
 ---
 - name: Set shared loader
-  lineinfile: dest={{ tomcat_user_home }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
+  lineinfile: dest=opt/alfresco/tomcat/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
 
 - name: Set SSLAuthenticator
-  lineinfile: dest={{ tomcat_user_home }}/conf/context.xml insertbefore="^</Context>" line="    <Valve className=\"org.apache.catalina.authenticator.SSLAuthenticator\" securePagesWithPragma=\"false\" />"
+  lineinfile: dest=opt/alfresco/tomcat/conf/context.xml insertbefore="^</Context>" line="    <Valve className=\"org.apache.catalina.authenticator.SSLAuthenticator\" securePagesWithPragma=\"false\" />"

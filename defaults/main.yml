@@ -6,8 +6,6 @@ java_home: '/lib/jvm/jre-1.8.0-openjdk'
 
 # tomcat
 tomcat_version: '8.5.31'
-
-tomcat_dir: '{{ alfresco_user_home }}/tomcat'
 tomcat_port: '8080'
 tomcat_port_ajp: '8009'
 tomcat_port_https: '8443'
@@ -15,6 +13,8 @@ tomcat_port_shutdown: '8005'
 tomcat_group: 'alfresco'
 tomcat_user: 'alfresco'
 tomcat_user_home: '/opt/alfresco/tomcat'
+
+tomcat_dir: '{{ alfresco_user_home }}/tomcat'
 
 ## alfresco
 alfresco_build: '00012'

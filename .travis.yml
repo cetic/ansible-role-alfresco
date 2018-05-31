@@ -27,10 +27,13 @@ script:
 
 after_failure:
   # Check what happened on systemd systems.   
-  - 'docker exec --tty ${container_id} env TERM=xterm ls /opt/alfresco/tomcat/'
-  - 'docker exec --tty ${container_id} env TERM=xterm ls /opt/alfresco/tomcat/conf/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/tomcat/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/tomcat/conf/'
   - 'docker exec --tty ${container_id} env TERM=xterm journalctl -xe --no-pager'
-  - 'docker exec --tty ${container_id} env TERM=xterm cat /opt/alfresco/tomcat/logs/catalina.out'
+  - 'docker exec --tty ${container_id} env TERM=xterm cat opt/alfresco/tomcat/logs/catalina.out'
+  - 'docker exec --tty ${container_id} env TERM=xterm cat var/log/alfresco/alfresco.log'
 
 #instruct Travis to notify Galaxy when a build completes:
 notifications:
