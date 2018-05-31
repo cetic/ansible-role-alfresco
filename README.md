@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cetic/ansible-role-alfresco.svg?branch=master)](https://travis-ci.org/cetic/ansible-role-alfresco)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-_cetic.alfresco-blue.svg)](https://galaxy.ansible.com/cetic/alfresco/)
 
-Installs Alfresco Community on RHEL/CentOS servers and Ubuntu servers with [ansible](http://www.ansible.com/home).
+Installs Alfresco Community on RHEL/CentOS 7 with [ansible](http://www.ansible.com/home).
 
 This repository is a fork from https://github.com/libersoft/ansible-alfresco
 The goal here is to provide a standalone alfresco role that can be added into your playbooks.
@@ -22,13 +22,14 @@ Available variables are listed below, along with default values (see `defaults/m
 
 ### tomcat
 
-	tomcat_version: '7.0.61'
-	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
-	tomcat_dir: '{{ home }}/tomcat'
+	tomcat_version: '8.5.31'
 	tomcat_port: '8080'
 	tomcat_port_ajp: '8009'
 	tomcat_port_https: '8443'
 	tomcat_port_shutdown: '8005'
+	tomcat_group: 'alfresco'
+	tomcat_user: 'alfresco'
+	tomcat_user_home: '/opt/alfresco/tomcat'
 	
 You can set variables related to tomcat here.
 
@@ -48,6 +49,7 @@ You can set variables related to alfresco here.
 	alfresco_archive_folder: ''
 	alfresco_user: 'alfresco'
 	alfresco_group: 'alfresco'
+	java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
 	
 The user and group under which Alfresco will run.	
 	
@@ -139,22 +141,37 @@ See https://github.com/EisenVault/ev-alfresco-azure-adapter for more information
 ## Dependencies
 
   - geerlingguy.java
+  - cetic.tomcat
 
 ## Example Playbook
 
 ```yaml
 - hosts: alfresco
+  become: true
+  vars:
+    tomcat_group: 'alfresco'
+    tomcat_user: 'alfresco'
+    tomcat_user_home: '/opt/alfresco/tomcat'  
   roles:
     - role: geerlingguy.java
+    - role: cetic.tomcat
     - role: cetic.alfresco
-      become: true
 ```
+
+## Tests
+
+### testing locally with [Vagrant](https://www.vagrantup.com/)
+
+You can test this ansible role by using `vagrant`. See the Vagrantfile.
+
+### testing with Travis
+
+See the playbook used for Travis CI tests (tests/test.yml).
 
 ## Future improvements
 
 *  Provide more recent/different versions of Alfresco & Solr 
-*  More Linux support 
-*  Separate Tomcat - Alfresco roles
+*  More OS plateforms support 
 
 Feel free to contribute.
 

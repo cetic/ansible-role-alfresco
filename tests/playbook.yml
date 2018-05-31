@@ -1,19 +1,16 @@
 ---
 # Install Alfresco
-- hosts: all
-  become: true
+- hosts: alfresco
   vars:
     tomcat_group: 'alfresco'
     tomcat_user: 'alfresco'
     tomcat_user_home: '/opt/alfresco/tomcat'  
-  tasks:
-    - name: installing repo for Java 8 in Ubuntu
-      apt_repository: repo='ppa:openjdk-r/ppa'
-      when: "ansible_os_family == 'Debian'"
+  become: true
   roles:
     - role: geerlingguy.java
       when: "ansible_os_family == 'RedHat'"
       java_packages:
         - java-1.8.0-openjdk
     - role: cetic.tomcat
-    - role: role_under_test
+    - role: '../../vagrant'
+    #role in test: alfresco
