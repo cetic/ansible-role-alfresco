@@ -2,6 +2,10 @@
 # Install Alfresco
 - hosts: all
   become: true
+  vars:
+    tomcat_group: 'alfresco'
+    tomcat_user: 'alfresco'
+    tomcat_user_home: '/opt/alfresco/tomcat'  
   tasks:
     - name: installing repo for Java 8 in Ubuntu
       apt_repository: repo='ppa:openjdk-r/ppa'

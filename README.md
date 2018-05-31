@@ -146,9 +146,13 @@ See https://github.com/EisenVault/ev-alfresco-azure-adapter for more information
 ```yaml
 - hosts: alfresco
   become: true
+  vars:
+    tomcat_group: 'alfresco'
+    tomcat_user: 'alfresco'
+    tomcat_user_home: '/opt/alfresco/tomcat'  
   roles:
     - role: geerlingguy.java
-	- role: cetic.tomcat
+    - role: cetic.tomcat
     - role: cetic.alfresco
 ```
 
