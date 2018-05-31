@@ -17,6 +17,22 @@ share.port={{ tomcat_port }}
 #share.port={{ tomcat_port }}
 #share.protocol=http
 
+{% if setup_azure_blob_storage%}
+#
+# Azure Blob Storage Plugin
+#-------------
+# Your Azure credentials
+azure.accessKey={{ azure_ssh_key }}
+# The Azure block content store Container Name
+azure.containerName={{ azure_container_name }}
+# The Azure block content store Account Name
+azure.accountName={{ azure_storage_account }}
+# The relative path within the bucket to use as the content store
+dir.contentstore=contentstore
+# The relative path within the bucket to use as the deleted content store
+dir.contentstore.deleted=contentstore.deleted
+{% endif %}
+
 #
 # File locations
 #-------------
@@ -28,7 +44,7 @@ dir.root={{ alfresco_data_home }}/alf_data
 db.username={{ alfresco_db_user }}
 db.password={{ alfresco_db_password }}
 db.schema.update=true
-db.driver=com.mysql.jdbc.Driver
+db.driver={{ alfresco_db_driver }}
 db.url={{alfresco_default_database_url}}
 
 #

@@ -10,12 +10,16 @@
   when: alfresco_downloaded|changed
 
 - name: Install alfresco to tomcat
-  shell: cp -rf /tmp/alfresco/web-server/* {{ alfresco_user_home }}/tomcat/
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/web-server/* {{ alfresco_user_home }}/tomcat/
   when: alfresco_extracted|changed
 
 - name: Install alfresco bin, licenses and readme
-  shell: cp -rf /tmp/alfresco/bin /tmp/alfresco/licenses /tmp/alfresco/README.txt {{ alfresco_user_home }}/
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
   when: alfresco_extracted|changed
+  
+- name: Install alfresco amps for alfresco share (5.2)
+  shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/amps {{ alfresco_user_home }}/
+  when: setup_shared_alfresco
 
 - name: Cleanup alfresco unzipped
   file: path=/tmp/alfresco state=absent
@@ -25,7 +29,7 @@
   file: path={{ alfresco_user_home }}/alf_data state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
   when: alfresco_extracted|changed
 
-- name: Create alfresco amp directory
+- name: Create alfresco amp directory if not exists
   file: path={{ alfresco_user_home }}/amps state=directory owner={{ alfresco_user }} group={{ alfresco_group }}
   when: alfresco_extracted|changed
 
@@ -60,21 +64,63 @@
 - name: Set alfresco file owner
   shell: chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }} && chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }}/tomcat/
   when: alfresco_extracted|changed
+  
+- include: azure-blob-storage.yml
+  when: setup_azure_blob_storage
 
 - name: Start alfresco server
   shell: service alfresco start
   when: alfresco_extracted|changed
-
+  
 - name: Wait for alfresco war deploy
   wait_for: path=/opt/alfresco/tomcat/webapps/alfresco/WEB-INF/web.xml
-  when: alfresco_extracted|changed
-
+  when: alfresco_extracted|changed  
+  
 - name: Relax security constraint for solr http comunication
   copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_extracted|changed
   
-- name: Create lib folder if it doesn't exist (fix issue)
+- name: wait for alfresco log
+  wait_for:
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+    state: present
+
+- name: wait for alfresco startup
+  shell: 'grep "Server startup in" {{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  register: cmd_result
+  retries: 1000
+  delay: 5
+  until: cmd_result | success
+
+- name: clean previous logs
   file:
-    path: /opt/apache-tomcat-{{ tomcat_version }}/shared/lib
-    state: directory
-    mode: 0755
+    state: absent
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  
+- name: stop alfresco server
+  shell: service alfresco stop
+
+- name: Apply amps Shared Alfresco
+  shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
+  when: setup_shared_alfresco
+  
+- name: start alfresco server
+  shell: service alfresco start
+
+- name: wait for alfresco log
+  wait_for:
+    path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
+    state: present
+
+- name: wait for alfresco startup
+  shell: 'grep "Server startup in" {{ alfresco_user_home }}/tomcat/logs/catalina.out'
+  register: cmd_result
+  retries: 1000
+  delay: 5
+  until: cmd_result | success
+
+#- name: Create lib folder if it doesn't exist (fix issue)
+#  file:
+#    path: /opt/apache-tomcat-{{ tomcat_version }}/shared/lib
+#    state: directory
+#    mode: 0755

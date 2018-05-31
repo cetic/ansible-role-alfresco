@@ -1,0 +1,11 @@
+---
+alfresco_enablerepo: ''
+__alfresco_packages:
+    - unzip
+    - wget
+    - curl
+    - ImageMagick
+    - libreoffice
+    - libreoffice-headless
+    - git
+    - apache-maven

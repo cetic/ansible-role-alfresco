@@ -5,18 +5,23 @@
 java_home: '/lib/jvm/jre-1.8.0-openjdk'
 
 # tomcat
-tomcat_version: '7.0.61'
-java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
-tomcat_dir: '{{ alfresco_user_home }}/tomcat'
+tomcat_version: '8.5.31'
 tomcat_port: '8080'
 tomcat_port_ajp: '8009'
 tomcat_port_https: '8443'
 tomcat_port_shutdown: '8005'
+tomcat_group: 'alfresco'
+tomcat_user: 'alfresco'
+tomcat_user_home: '/opt/alfresco/tomcat'
+
+tomcat_dir: '{{ alfresco_user_home }}/tomcat'
 
 ## alfresco
 alfresco_build: '00012'
 alfresco_version: '4.2.f'
 alfresco_version_url: '{{alfresco_version}}'
+alfresco_archive_folder: ''
+
 alfresco_user: 'alfresco'
 alfresco_group: 'alfresco'
 alfresco_user_home: '/opt/alfresco'
@@ -24,13 +29,28 @@ alfresco_data_home: '/opt/alfresco'
 alfresco_log_home: '/var/log/alfresco'
 alfresco_uid: '501'
 alfresco_ip: 'localhost'
+
+java_opts: '-Xms512m -Xmx1024m -Xss768k -XX:NewSize=256m -server'
 # db
 alfresco_db_host: '127.0.0.1'
 alfresco_db_ip: 'localhost'
 alfresco_db_name: 'alfresco'
 alfresco_db_user: 'alfresco'
 alfresco_db_password: 'alfresco'
+alfresco_db_driver: 'com.mysql.jdbc.Driver'
 alfresco_default_database_url: 'jdbc:mysql://{{ alfresco_db_ip }}/alfresco?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false'
+
+# Apply shared from Alfresco 5.2
+setup_shared_alfresco: false
+
+# Alfresco Plugin Azure Blob Storage
+setup_azure_blob_storage: false
+# download_alfresco_adapter: true 
+# download_alfresco_adapter_url: https://github.com/cetic/ev-alfresco-azure-adapter/releases/download/1.0.0/alfresco-azure-adapter.amp
+# If true set these variables
+#azure_ssh_key: 
+#azure_container_name: 
+#azure_storage_account:
 
 # tools
 imagemagick_version: '6.5.4.7'
@@ -39,13 +59,10 @@ imagemagick_version: '6.5.4.7'
 setup_solr: true
 ip_solr: 'localhost'
 solr_port: '8983'
+solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
+solr_version: solr
+solr_war: apache-solr-1.4.1.war
 
 # mysql-java-connector
 setup_mysql_java_connector: true
 mysql_connector_version: '5.1.35'
-
-# mysql
-mysql_root_db_pass: 'root'
-mysql_port: '3306'
-mysql_bind_address: '0.0.0.0'
-ip_mysql: 'localhost'

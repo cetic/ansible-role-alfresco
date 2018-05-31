@@ -1,6 +1,7 @@
 ---
 dependencies:
   - geerlingguy.java
+  - cetic.tomcat
 
 galaxy_info:
   author: cetic
@@ -11,10 +12,6 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
-    - 6
     - 7
-  - name: Ubuntu
-    versions:
-    - trusty
   galaxy_tags:
-    - ecm, alfresco
+    - ecm, alfresco, java

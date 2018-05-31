@@ -1,0 +1,47 @@
+---
+- name: Git checkout of the Alfresco adapter to work with Azure block storage
+  git:
+    repo: 'https://github.com/EisenVault/ev-alfresco-azure-adapter.git'
+    dest: /tmp/ev-alfresco-azure-adapter/
+  when: not download_alfresco_adapter
+
+- name: Download dependencies and build the project ev-alfresco-azure-adapter
+  shell: mvn -f /tmp/ev-alfresco-azure-adapter/pom.xml clean install
+  when: not download_alfresco_adapter
+  
+- name: Wait for ev-alfresco-azure-adapter amps file
+  wait_for: path=/tmp/ev-alfresco-azure-adapter/target/alfresco-azure-adapter.amp
+  when: not download_alfresco_adapter
+  
+- name: Copy alfresco-azure-adapter.amp into amps folder.
+  copy:
+    src: '/tmp/ev-alfresco-azure-adapter/target/alfresco-azure-adapter.amp'
+    dest: '{{ alfresco_user_home }}/amps'
+    remote_src: yes
+    owner: '{{ alfresco_user }}'
+    group: '{{ alfresco_group }}'
+    mode: 0755
+  when: not download_alfresco_adapter
+
+- name: Download Alfresco Blob Storage Adapter Amp file
+  get_url:
+    url: '{{download_alfresco_adapter_url}}'
+    dest: /tmp/alfresco-azure-adapter.amp
+  when: download_alfresco_adapter
+  
+- name: Wait for ev-alfresco-azure-adapter amps file
+  wait_for: path=/tmp/alfresco-azure-adapter.amp 
+  when: download_alfresco_adapter
+    
+- name: Copy alfresco-azure-adapter.amp into amps folder.
+  copy:
+    src: '/tmp/alfresco-azure-adapter.amp'
+    dest: '{{ alfresco_user_home }}/amps'
+    remote_src: yes
+    owner: '{{ alfresco_user }}'
+    group: '{{ alfresco_group }}'
+    mode: 0755
+  when: download_alfresco_adapter
+
+- name: Apply amps alfresco-azure-adapter.amp
+  shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'

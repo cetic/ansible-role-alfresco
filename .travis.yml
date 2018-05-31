@@ -2,23 +2,16 @@
 services: docker
 
 env:
-  - distro: centos6
-    playbook: test.yml
-    prefix: ''
-    http_port: 8080
   - distro: centos7
     playbook: test.yml
-    prefix: ''
-    http_port: 8080
-  - distro: ubuntu1404
-    playbook: test.yml
-    prefix: ''
+    prefix: 'share/page/'
     http_port: 8080
 
 script:
   # Configure test script so we can run extra tests after playbook is run.
   - export container_id=$(date +%s)
   - export cleanup=false
+  - export test_idempotence=false
 
   # Download test shim.
   - wget -O tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
@@ -27,14 +20,21 @@ script:
   # Run tests.
   - tests/test.sh
 
- # Make sure Alfresco is running.
+ # Make sure Tomcat is running.
+  - 'docker exec --tty ${container_id} env TERM=xterm curl http://localhost:$http_port'
+# Make sure Tomcat is running.
   - 'docker exec --tty ${container_id} env TERM=xterm curl http://localhost:$http_port/$prefix'
 
 after_failure:
   # Check what happened on systemd systems.   
-  - 'docker exec --tty ${container_id} env TERM=xterm systemctl -l status alfresco'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/tomcat/'
+  - 'docker exec --tty ${container_id} env TERM=xterm ls opt/alfresco/tomcat/conf/'
   - 'docker exec --tty ${container_id} env TERM=xterm journalctl -xe --no-pager'
-  - 'docker exec --tty ${container_id} env TERM=xterm cat /opt/alfresco/tomcat/logs/catalina.out'
+  - 'docker exec --tty ${container_id} env TERM=xterm cat opt/alfresco/tomcat/logs/catalina.out'
+  - 'docker exec --tty ${container_id} env TERM=xterm cat var/log/alfresco/alfresco.log'
 
 #instruct Travis to notify Galaxy when a build completes:
-webhooks: https://galaxy.ansible.com/api/v1/notifications/
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
