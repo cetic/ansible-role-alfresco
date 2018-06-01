@@ -96,7 +96,7 @@
 - name: Remove old conf alfresco.xml and share.xml catalina for Tomcat8
   file:
     state: absent
-    path: "{{ artifact_path }}/tomcat/conf/Catalina/localhost/"
+    path: "{{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/"
   when:
     - '{{ tomcat_version[0:1]|int}} > 7'
     - 'alfresco_extracted is changed'
