@@ -1,9 +1,10 @@
 ---
-- name: Download alfresco community
-  shell: 'wget http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/alfresco-community-{{ alfresco_version_url }}.zip
-    -O /tmp/alfresco-community-{{ alfresco_version }}.zip creates=/tmp/alfresco-community-{{ alfresco_version }}.zip'
+- name: Download alfresco community {{ alfresco_version }}
+  get_url:
+    url: http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/alfresco-community-{{ alfresco_version_url }}.zip
+    dest: /tmp/alfresco-community-{{ alfresco_version }}.zip
   register: alfresco_downloaded
-
+  
 - name: Extract alfresco
   command: unzip -o /tmp/alfresco-community-{{ alfresco_version }}.zip -d /tmp/alfresco/
   register: alfresco_extracted
@@ -16,7 +17,7 @@
 - name: Install alfresco bin, licenses and readme
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/bin /tmp/alfresco{{alfresco_archive_folder}}/licenses /tmp/alfresco{{alfresco_archive_folder}}/README.txt {{ alfresco_user_home }}/
   when: alfresco_extracted is changed
-  
+
 - name: Install alfresco amps for alfresco share (5.2)
   shell: cp -rf /tmp/alfresco{{alfresco_archive_folder}}/amps {{ alfresco_user_home }}/
   when: setup_shared_alfresco
@@ -76,9 +77,29 @@
   wait_for: path=/opt/alfresco/tomcat/webapps/alfresco/WEB-INF/web.xml
   when: alfresco_extracted is changed
   
-- name: Relax security constraint for solr http comunication
-  copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-  when: alfresco_extracted is changed
+#- name: Relax security constraint for solr http comunication
+#  copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+#  when: alfresco_extracted is changed
+
+#- name: Update alfresco.xml catalina for Tomcat8
+#  template: src=alfresco.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/alfresco.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+#  when: 
+#    - '{{ tomcat_version[0:1]|int}} > 7'
+#    - 'alfresco_extracted is changed'
+  
+#- name: Update share.xml catalina for Tomcat8
+#  template: src=share.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/share.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+#  when:
+#    - '{{ tomcat_version[0:1]|int}} > 7'
+#    - 'alfresco_extracted is changed'
+
+- name: Remove old conf alfresco.xml and share.xml catalina for Tomcat8
+  file:
+    state: absent
+    path: "{{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/"
+  when:
+    - '{{ tomcat_version[0:1]|int}} > 7'
+    - 'alfresco_extracted is changed'
   
 - name: wait for alfresco log
   wait_for:
