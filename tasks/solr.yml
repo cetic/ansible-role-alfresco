@@ -2,7 +2,7 @@
 - name: Download solr community
   get_url:
     url: http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/{{ solr_version_url }}.zip
-    dest: /tmp/{{ solr_version_url }}.zip creates=/tmp/{{ solr_version }}.zip
+    dest: /tmp/{{ solr_version_url }}.zip
   register: alfresco_solr_downloaded
 
 - name: Extract alfresco solr
