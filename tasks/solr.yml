@@ -17,9 +17,13 @@
 - name: Install alfresco-solr to tomcat
   shell: cp -rf /tmp/alfresco-solr/* {{ alfresco_user_home }}/solr/
   when: alfresco_solr_extracted is changed
+  
+- name: Rename solr.war
+  shell: mv {{ alfresco_user_home }}/solr/*.war {{ alfresco_user_home }}/solr/{{solr_version}}.war 
+  when: alfresco_solr_extracted is changed
 
 - name: Copy the context.xml file to tomcat
-  template: src=solr.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/solr.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  template: src=solr.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/{{solr_version}}.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_solr_extracted is changed
   
 - name: Configure the solcores properties for workspace
@@ -27,8 +31,17 @@
   when: alfresco_solr_extracted is changed
     
 - name: Configure the solcores properties for archive
-  template: src=solrcore.properties.j2 dest={{ alfresco_user_home }}/solr/archive-SpacesStore/conf/solrcore.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  template: src=solrcore.properties-archives.j2 dest={{ alfresco_user_home }}/solr/archive-SpacesStore/conf/solrcore.properties owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_solr_extracted is changed
+  
+- name: Configure the solr config xml (lock) for workspace
+  template: src=solrconfig.xml.j2 dest={{ alfresco_user_home }}/solr/workspace-SpacesStore/conf/solrconfig.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  when: alfresco_solr_extracted is changed
+    
+- name: Configure the solr config xml (lock) for archive
+  template: src=solrconfig.xml.j2 dest={{ alfresco_user_home }}/solr/archive-SpacesStore/conf/solrconfig.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  when: alfresco_solr_extracted is changed
+
 
 - name: Cleanup alfresco-solr unzipped
   file: path=/tmp/alfresco-solr state=absent

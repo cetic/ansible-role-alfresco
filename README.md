@@ -87,7 +87,7 @@ In the case where you use a mysql database, you need to install the mysql connec
 	
 	setup_solr: true
 	ip_solr: 'localhost'
-	solr_port: '8983'
+	solr_port: '8080'
 	solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
 	solr_version: solr
 	solr_war: apache-solr-1.4.1.war
@@ -121,7 +121,7 @@ You can set these variables to have an Alfresco 5.2.
 	
 	setup_solr: true
 	ip_solr: 'localhost'
-	solr_port: '8983'
+	solr_port: '8080'
 	solr_version_url: alfresco-solr4-5.2.g
 	solr_version: solr4
 	solr_war: solr4.war

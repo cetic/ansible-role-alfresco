@@ -58,7 +58,7 @@ imagemagick_version: '6.5.4.7'
 # solr
 setup_solr: true
 ip_solr: 'localhost'
-solr_port: '8983'
+solr_port: '8080'
 solr_version_url: 'alfresco-community-solr-{{alfresco_version}}'
 solr_version: solr
 solr_war: apache-solr-1.4.1.war

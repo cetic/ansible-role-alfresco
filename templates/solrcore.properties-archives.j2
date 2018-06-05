@@ -4,7 +4,7 @@
 # data is in ${data.dir.root}/${data.dir.store}
  
 data.dir.root={{ alfresco_user_home }}/alf_data/{{solr_version}}/index
-data.dir.store=workspace/SpacesStore
+data.dir.store=archive/SpacesStore
 enable.alfresco.tracking=true
 cache.alfresco.size=100
 max.field.length=2147483647
@@ -18,7 +18,7 @@ alfresco.port={{ tomcat_port }}
 alfresco.port.ssl= {{ tomcat_port_https }}
 alfresco.baseUrl=/alfresco
 alfresco.cron=0/15 * * * * ? *
-alfresco.stores=workspace://SpacesStore
+alfresco.stores=archive://SpacesStore
 #alfresco.index.transformContent=false
 #alfresco.ignore.datatype.1=d:content
 alfresco.lag=1000
