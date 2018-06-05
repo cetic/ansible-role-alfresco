@@ -19,7 +19,7 @@
   when: alfresco_solr_extracted is changed
 
 - name: Copy the context.xml file to tomcat
-  template: src=solr.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/{{solr-version}}.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
+  template: src=solr.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/{{solr_version}}.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
   when: alfresco_solr_extracted is changed
   
 - name: Configure the solcores properties for workspace
