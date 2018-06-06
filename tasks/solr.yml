@@ -18,8 +18,8 @@
   shell: cp -rf /tmp/alfresco-solr/* {{ alfresco_user_home }}/solr/
   when: alfresco_solr_extracted is changed
   
-- name: Rename solr.war
-  shell: mv {{ alfresco_user_home }}/solr/*.war {{ alfresco_user_home }}/solr/{{solr_version}}.war 
+- name: Rename solr.war 
+  shell: mv -vn {{ alfresco_user_home }}/solr/*.war {{ alfresco_user_home }}/solr/{{solr_version}}.war 
   when: alfresco_solr_extracted is changed
 
 - name: Copy the context.xml file to tomcat
