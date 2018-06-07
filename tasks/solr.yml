@@ -21,7 +21,7 @@
 - name: Rename solr.war
   shell: mv {{ alfresco_user_home }}/solr/*.war {{ alfresco_user_home }}/solr/{{solr_version}}.war 
   when:
-    - 'solr_version == "solr4"'
+    - 'solr_version != "solr4"'
     - 'alfresco_solr_extracted is changed'
 
 - name: Copy the context.xml file to tomcat
