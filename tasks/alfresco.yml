@@ -51,7 +51,7 @@
   when: alfresco_extracted is changed
 
 - name: Install alfresco init script
-  template: src=alfresco.j2 dest=/etc/init.d/alfresco owner=root group=root mode=0755
+  template: src=alfresco.j2 dest=/etc/init.d/alfresco owner={{ alfresco_user }} group={{ alfresco_group }} mode=0755
   when: alfresco_extracted is changed
 
 - name: Install alfresco global configuration
@@ -76,22 +76,6 @@
 - name: Wait for alfresco war deploy
   wait_for: path=/opt/alfresco/tomcat/webapps/alfresco/WEB-INF/web.xml
   when: alfresco_extracted is changed
-  
-#- name: Relax security constraint for solr http comunication
-#  copy: src=web.xml dest={{ alfresco_user_home }}/tomcat/webapps/alfresco/WEB-INF/web.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-#  when: alfresco_extracted is changed
-
-#- name: Update alfresco.xml catalina for Tomcat8
-#  template: src=alfresco.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/alfresco.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-#  when: 
-#    - '{{ tomcat_version[0:1]|int}} > 7'
-#    - 'alfresco_extracted is changed'
-  
-#- name: Update share.xml catalina for Tomcat8
-#  template: src=share.xml.j2 dest={{ alfresco_user_home }}/tomcat/conf/Catalina/localhost/share.xml owner={{ alfresco_user }} group={{ alfresco_group }} mode=0644
-#  when:
-#    - '{{ tomcat_version[0:1]|int}} > 7'
-#    - 'alfresco_extracted is changed'
 
 - name: Remove old conf alfresco.xml and share.xml catalina for Tomcat8
   file:
@@ -139,9 +123,3 @@
   retries: 1000
   delay: 5
   until: cmd_result is success
-
-#- name: Create lib folder if it doesn't exist (fix issue)
-#  file:
-#    path: /opt/apache-tomcat-{{ tomcat_version }}/shared/lib
-#    state: directory
-#    mode: 0755
