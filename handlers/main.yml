@@ -7,7 +7,7 @@
 
 - name: restart alfresco server
   listen: restart alfresco
-  shell: service alfresco restart
+  shell: /sbin/service alfresco restart
 
 - name: wait for alfresco log
   listen: restart alfresco

@@ -70,7 +70,7 @@
   when: setup_azure_blob_storage
 
 - name: Start alfresco server
-  shell: service alfresco start
+  shell: /sbin/service alfresco start
   when: alfresco_extracted is changed
   
 - name: Wait for alfresco war deploy
@@ -103,14 +103,14 @@
     path: '{{ alfresco_user_home }}/tomcat/logs/catalina.out'
   
 - name: stop alfresco server
-  shell: service alfresco stop
+  shell: /sbin/service alfresco stop
 
 - name: Apply amps Shared Alfresco
   shell: '/bin/sh {{ alfresco_user_home }}/bin/apply_amps.sh -force'
   when: setup_shared_alfresco
   
 - name: start alfresco server
-  shell: service alfresco start
+  shell: /sbin/service alfresco start
 
 - name: wait for alfresco log
   wait_for:
