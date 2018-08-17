@@ -5,12 +5,19 @@
     tomcat_group: 'alfresco'
     tomcat_user: 'alfresco'
     tomcat_user_home: '/opt/alfresco/tomcat'  
+    mysql_databases:
+      - name: alfresco
+    mysql_users:
+      - name: alfresco
+        password: alfresco
+        priv: "alfresco.*:ALL"
   become: true
   roles:
     - role: geerlingguy.java
       when: "ansible_os_family == 'RedHat'"
       java_packages:
         - java-1.8.0-openjdk
+    - role: geerlingguy.mysql
     - role: cetic.tomcat
     - role: '../../vagrant'
     #role in test: alfresco
