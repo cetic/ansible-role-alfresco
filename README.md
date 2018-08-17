@@ -151,9 +151,16 @@ See https://github.com/EisenVault/ev-alfresco-azure-adapter for more information
   vars:
     tomcat_group: 'alfresco'
     tomcat_user: 'alfresco'
-    tomcat_user_home: '/opt/alfresco/tomcat'  
+    tomcat_user_home: '/opt/alfresco/tomcat' 
+    mysql_databases:
+      - name: alfresco
+    mysql_users:
+      - name: alfresco
+        password: alfresco
+        priv: "alfresco.*:ALL" 
   roles:
     - role: geerlingguy.java
+    - role: geerlingguy.mysql
     - role: cetic.tomcat
     - role: cetic.alfresco
 ```
