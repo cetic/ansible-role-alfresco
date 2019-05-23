@@ -5,8 +5,7 @@
 
 Installs Alfresco Community on RHEL/CentOS 7 with [ansible](http://www.ansible.com/home).
 
-This repository is a fork from https://github.com/libersoft/ansible-alfresco
-The goal here is to provide a standalone alfresco role that can be added into your playbooks.
+The goal is to provide a standalone alfresco role that can be added into your playbooks.
 
 The ansible role allows you to install, for the moment, the version 4.2 or 5.2 of Alfresco.
 
@@ -187,4 +186,4 @@ Feel free to contribute.
 [Gnu General Public License 3.0](https://www.gnu.org/licenses/gpl.html)
 
 ## Credits
-This repository is a fork from https://github.com/libersoft/ansible-alfresco
+This repository was initially a fork from https://github.com/libersoft/ansible-alfresco
